@@ -1,0 +1,29 @@
+<form (ngSubmit)="onSubmit()" #entryForm="ngForm">
+    <div>
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date" [(ngModel)]="entry.date" required>
+    </div>
+    
+    <div>
+      <label for="day">Day:</label>
+      <input type="text" id="day" name="day" [value]="getDay(entry.date)" readonly>
+    </div>
+  
+    <div>
+      <label for="time">Time:</label>
+      <input type="time" id="time" name="time" [(ngModel)]="entry.time" required>
+    </div>
+  
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" [(ngModel)]="entry.name" required>
+    </div>
+  
+    <div>
+      <label for="status">Status:</label>
+      <input type="text" id="status" name="status" [(ngModel)]="entry.status" required>
+    </div>
+  
+    <button type="submit" [disabled]="!entryForm.form.valid">Submit</button>
+  </form>
+  
