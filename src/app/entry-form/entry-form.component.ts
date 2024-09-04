@@ -1,40 +1,76 @@
-import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { EntryService } from '../entry.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-entry-form',
   templateUrl: './entry-form.component.html',
-  styleUrls: ['./entry-form.component.css'] // Ensure this file contains the CSS provided
-
+  styleUrls: ['./entry-form.component.css']
 })
-export class EntryFormComponent {
+export class EntryFormComponent implements OnInit {
   entry = {
     date: '',
-    time: '',
+    hours: 0,     
+    minutes: 0,   
     name: '',
     status: ''
   };
 
-  constructor(private entryService: EntryService) {}
+  names: string[] = ['Chay', 'Nithin', 'Pradeep', 'Souji', 'Sathvika P', 'Shivu'];
+  newName: string = '';
+  addingNew: boolean = false;
+
+  ngOnInit() {
+    this.loadFormData();
+  }
+
+  loadFormData() {
+    if (typeof window !== 'undefined') {
+      const storedNames = localStorage.getItem('names');
+      if (storedNames) {
+        this.names = JSON.parse(storedNames);
+      }
+
+      const storedEntry = localStorage.getItem('entryForm');
+      if (storedEntry) {
+        this.entry = JSON.parse(storedEntry);
+      }
+    }
+  }
+
+  onNameChange(event: Event) {
+    const selectedName = (event.target as HTMLSelectElement).value;
+    this.addingNew = selectedName === 'addNew';
+  }
+
+  addNewName() {
+    if (this.newName && !this.names.includes(this.newName)) {
+      this.names.push(this.newName);
+      this.entry.name = this.newName;
+      this.newName = '';
+      this.addingNew = false;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('names', JSON.stringify(this.names));
+      }
+    }
+  }
 
   onSubmit() {
-    if (this.entry.date && this.entry.time && this.entry.name && this.entry.status) {
-      this.entryService.addEntry(this.entry).subscribe(
-        response => {
-          console.log('Entry added successfully:', response);
-          // Handle success
-        },
-        error => {
-          console.error('Error adding entry:', error);
-          // Handle error
-        }
-      );
+    console.log('Form submitted', this.entry);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('entryForm'); // Clear data after submission
+    }
+  }
+
+  saveFormData() {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('entryForm', JSON.stringify(this.entry));
     }
   }
 
   getDay(date: string): string {
-    const day = new Date(date).toLocaleDateString('en-US', { weekday: 'long' });
-    return day;
+    if (date) {
+      const day = new Date(date).toLocaleDateString('en-US', { weekday: 'long' });
+      return day;
+    }
+    return '';
   }
 }

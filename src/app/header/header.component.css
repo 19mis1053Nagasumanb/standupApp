@@ -10,6 +10,7 @@
     gap: 15px;
     margin: 0;
     padding: 0;
+    margin-left: 43%;
   }
   
   .nav-links li {
@@ -18,8 +19,8 @@
   
   .nav-links a {
     text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
+    color: #0c72df;
+    /* font-weight: bold; */
   }
   
   .nav-links a:hover {

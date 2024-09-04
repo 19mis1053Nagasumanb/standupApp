@@ -1,29 +1,49 @@
 <form (ngSubmit)="onSubmit()" #entryForm="ngForm">
-    <div>
-      <label for="date">Date:</label>
-      <input type="date" id="date" name="date" [(ngModel)]="entry.date" required>
+
+  <div>
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" [(ngModel)]="entry.date" (ngModelChange)="saveFormData()" required>
+  </div>
+
+
+  <div>
+    <label for="day">Day:</label>
+    <input type="text" id="day" name="day" [value]="getDay(entry.date)" placeholder="Invalid date" readonly>
+  </div>
+
+
+  <div style="display: flex; align-items: center;">
+    <div style="margin-right: 8px; width: 50%;">
+      <label for="hours">Hours:</label>
+      <input type="number" id="hours" name="hours" [(ngModel)]="entry.hours" min="0" max="23" placeholder="hh" required>
     </div>
+    <div style="width: 50%;">
+      <label for="minutes">Minutes:</label>
+      <input type="number" id="minutes" name="minutes" [(ngModel)]="entry.minutes" min="0" max="59" placeholder="mm" required>
+    </div>
+  </div>
+
+ 
+  <div>
+    <label for="name">Name:</label>
+    <select id="name" name="name" [(ngModel)]="entry.name" (change)="onNameChange($event); saveFormData()" required>
+      <option *ngFor="let name of names" [value]="name">{{ name }}</option>
+      <option value="addNew">ADD New</option>
+    </select>
+
     
-    <div>
-      <label for="day">Day:</label>
-      <input type="text" id="day" name="day" [value]="getDay(entry.date)" readonly>
+    <div *ngIf="addingNew">
+      <input type="text" name="newName" placeholder="Enter new name" [(ngModel)]="newName" [ngModelOptions]="{standalone: true}">
+      <button type="button" (click)="addNewName()">Add</button>
     </div>
-  
-    <div>
-      <label for="time">Time:</label>
-      <input type="time" id="time" name="time" [(ngModel)]="entry.time" required>
-    </div>
-  
-    <div>
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" [(ngModel)]="entry.name" required>
-    </div>
-  
-    <div>
-      <label for="status">Status:</label>
-      <input type="text" id="status" name="status" [(ngModel)]="entry.status" required>
-    </div>
-  
-    <button type="submit" [disabled]="!entryForm.form.valid">Submit</button>
-  </form>
-  
+  </div>
+
+
+  <div>
+    <label for="status">Status:</label>
+    <textarea id="status" name="status" [(ngModel)]="entry.status" (ngModelChange)="saveFormData()" required></textarea>
+  </div>
+
+
+  <button type="submit" [disabled]="!entryForm.form.valid">Submit</button>
+</form>

@@ -1,50 +1,81 @@
 import { Component, OnInit } from '@angular/core';
-import { EntryService } from '../entry.service';
 
 @Component({
   selector: 'app-entry-list',
   templateUrl: './entry-list.component.html',
-  styleUrls: ['./entry-list.component.css'] // Ensure this file contains the CSS provided
-
+  styleUrls: ['./entry-list.component.css']
 })
 export class EntryListComponent implements OnInit {
-  entries: any[] = [];
+  entries = [
+    { name: 'Entry 1', date: '2024-09-01', time: '10:00', status: 'Pending' },
+    { name: 'Entry 2', date: '2024-09-02', time: '11:00', status: 'Completed' },
+    { name: 'Entry 3', date: '2024-09-03', time: '12:00', status: 'Pending' },
+    { name: 'Entry 4', date: '2024-09-01', time: '10:00', status: 'Pending' },
+    { name: 'Entry 5', date: '2024-09-02', time: '11:00', status: 'Completed' },
+    { name: 'Entry 6', date: '2024-09-03', time: '12:00', status: 'Pending' },
+    { name: 'Entry 7', date: '2024-09-01', time: '10:00', status: 'Pending' },
+    { name: 'Entry 8', date: '2024-09-02', time: '11:00', status: 'Completed' },
+    { name: 'Entry 9', date: '2024-09-03', time: '12:00', status: 'Pending' },
+    { name: 'Entry 10', date: '2024-09-01', time: '10:00', status: 'Pending' },
+    { name: 'Entry 11', date: '2024-09-02', time: '11:00', status: 'Completed' },
+    { name: 'Entry 12', date: '2024-09-03', time: '12:00', status: 'Pending' },
+    // Add more entries as needed
+  ];
+  filteredEntries = [...this.entries]; // Copy of entries to filter
+  currentPage = 1;
+  itemsPerPage = 10;
+  totalPages = 0;
 
-  constructor(private entryService: EntryService) {}
+  // Search input fields
+  searchName = '';
+  searchDate = '';
+  searchStatus = '';
+  paginatedEntries: { name: string; date: string; time: string; status: string; }[] | undefined;
 
   ngOnInit() {
-    this.fetchEntries();
+    this.calculateTotalPages();
+    this.updatePaginatedEntries();
   }
 
-  fetchEntries() {
-    this.entryService.getEntries().subscribe(
-      response => {
-        this.entries = response;
-      },
-      error => {
-        console.error('Error fetching entries:', error);
-        // Handle error
-      }
+  calculateTotalPages() {
+    this.totalPages = Math.ceil(this.filteredEntries.length / this.itemsPerPage);
+  }
+
+  updatePaginatedEntries() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedEntries = this.filteredEntries.slice(startIndex, endIndex);
+  }
+
+  filterEntries() {
+    this.filteredEntries = this.entries.filter(entry =>
+      (this.searchName ? entry.name.toLowerCase().includes(this.searchName.toLowerCase()) : true) &&
+      (this.searchDate ? entry.date.includes(this.searchDate) : true) &&
+      (this.searchStatus ? entry.status.toLowerCase().includes(this.searchStatus.toLowerCase()) : true)
     );
+    this.calculateTotalPages();
+    this.currentPage = 1; // Reset to the first page after filtering
+    this.updatePaginatedEntries();
   }
 
-  onDelete(id: number) {
-    if (confirm('Are you sure you want to delete this entry?')) {
-      this.entryService.deleteEntry(id).subscribe(
-        response => {
-          console.log('Entry deleted successfully:', response);
-          this.fetchEntries();
-        },
-        error => {
-          console.error('Error deleting entry:', error);
-          // Handle error
-        }
-      );
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.updatePaginatedEntries();
     }
   }
 
-  getDay(date: string): string {
-    const day = new Date(date).toLocaleDateString('en-US', { weekday: 'long' });
-    return day;
+  goToPreviousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePaginatedEntries();
+    }
+  }
+
+  goToNextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePaginatedEntries();
+    }
   }
 }

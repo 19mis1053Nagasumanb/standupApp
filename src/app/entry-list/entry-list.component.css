@@ -1,0 +1,54 @@
+.entry-list-container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .search-filters {
+    margin-bottom: 20px;
+  }
+  
+  .search-filters input {
+    padding: 6px;
+    margin-right: 10px;
+    width: 150px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  th, td {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .pagination-controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  button {
+    padding: 6px 12px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  
+  button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+  
+  button.active {
+    background-color: #0056b3;
+    font-weight: bold;
+  }
+  
