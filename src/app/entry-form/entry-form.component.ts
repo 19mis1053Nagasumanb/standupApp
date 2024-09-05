@@ -11,7 +11,9 @@ export class EntryFormComponent implements OnInit {
     hours: 0,
     minutes: 0,   
     name: '',
-    status: ''
+    status: '',
+    priority: '' // Added priority field
+
   };
 
   names: string[] = ['Chay', 'Nithin', 'Pradeep', 'Souji', 'Sathvika P', 'Shivu'];

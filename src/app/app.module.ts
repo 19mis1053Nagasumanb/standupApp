@@ -8,6 +8,7 @@ import { EntryListComponent } from './entry-list/entry-list.component';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DesginComponent } from './desgin/desgin.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
     EntryFormComponent,
     EntryListComponent,
     HeaderComponent,
+    DesginComponent,
     
 
   ],

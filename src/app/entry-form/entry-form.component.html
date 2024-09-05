@@ -1,5 +1,5 @@
-<div class="container">
-  
+
+
 <form (ngSubmit)="onSubmit()" #entryForm="ngForm">
 
   <div>
@@ -40,6 +40,16 @@
     </div>
   </div>
 
+  <div>
+    <label for="priority">Priority:</label>
+    <select id="priority" name="priority" [(ngModel)]="entry.priority" required>
+      <option value="" disabled selected>Select Priority</option>
+      <option value="high">High</option>
+      <option value="medium">Medium</option>
+      <option value="low">Low</option>
+    </select>
+  </div>
+
 
 
   <div>
@@ -51,4 +61,4 @@
   <button type="submit" [disabled]="!entryForm.form.valid">Submit</button>
 </form>
 
-</div>
+
