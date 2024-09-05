@@ -7,7 +7,6 @@ import { EntryFormComponent } from './entry-form/entry-form.component';
 import { EntryListComponent } from './entry-list/entry-list.component';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -17,7 +16,6 @@ import { HttpClientModule } from '@angular/common/http';
     EntryFormComponent,
     EntryListComponent,
     HeaderComponent,
-    FooterComponent,
     
 
   ],

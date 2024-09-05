@@ -1,12 +1,10 @@
 <div class="entry-list-container">
-  <!-- Search Filters -->
   <div class="search-filters">
     <input type="text" placeholder="Search by Name" [(ngModel)]="searchName" (input)="filterEntries()">
     <input type="date" placeholder="Search by Date" [(ngModel)]="searchDate" (input)="filterEntries()">
     <input type="text" placeholder="Search by Status" [(ngModel)]="searchStatus" (input)="filterEntries()">
   </div>
 
-  <!-- Table for displaying entries -->
   <table>
     <thead>
       <tr>
@@ -14,19 +12,22 @@
         <th>Date</th>
         <th>Time</th>
         <th>Status</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let entry of paginatedEntries">
+      <tr *ngFor="let entry of paginatedEntries; let i = index">
         <td>{{ entry.name }}</td>
         <td>{{ entry.date }}</td>
         <td>{{ entry.time }}</td>
         <td>{{ entry.status }}</td>
+        <td>
+          <button (click)="confirmDelete(entry, i)">Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>
 
-  <!-- Pagination Controls -->
   <div class="pagination-controls">
     <button (click)="goToPreviousPage()" [disabled]="currentPage === 1">Previous</button>
     <button *ngFor="let page of [].constructor(totalPages); let i = index"

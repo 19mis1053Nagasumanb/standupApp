@@ -7,26 +7,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EntryListComponent implements OnInit {
   entries = [
-    { name: 'Entry 1', date: '2024-09-01', time: '10:00', status: 'Pending' },
-    { name: 'Entry 2', date: '2024-09-02', time: '11:00', status: 'Completed' },
-    { name: 'Entry 3', date: '2024-09-03', time: '12:00', status: 'Pending' },
-    { name: 'Entry 4', date: '2024-09-01', time: '10:00', status: 'Pending' },
-    { name: 'Entry 5', date: '2024-09-02', time: '11:00', status: 'Completed' },
-    { name: 'Entry 6', date: '2024-09-03', time: '12:00', status: 'Pending' },
-    { name: 'Entry 7', date: '2024-09-01', time: '10:00', status: 'Pending' },
-    { name: 'Entry 8', date: '2024-09-02', time: '11:00', status: 'Completed' },
-    { name: 'Entry 9', date: '2024-09-03', time: '12:00', status: 'Pending' },
-    { name: 'Entry 10', date: '2024-09-01', time: '10:00', status: 'Pending' },
-    { name: 'Entry 11', date: '2024-09-02', time: '11:00', status: 'Completed' },
-    { name: 'Entry 12', date: '2024-09-03', time: '12:00', status: 'Pending' },
-    // Add more entries as needed
+    { name: 'Task 1', date: '2024-09-01', time: '10:00', status: 'Pending' },
+    { name: 'Task 2', date: '2024-09-02', time: '11:00', status: 'Completed' },
+    { name: 'Task 3', date: '2024-09-03', time: '12:00', status: 'Pending' },
+    { name: 'Task 4', date: '2024-09-01', time: '10:00', status: 'Pending' },
+    { name: 'Task 5', date: '2024-09-02', time: '11:00', status: 'Completed' },
+    { name: 'Task 6', date: '2024-09-03', time: '12:00', status: 'Pending' },
+    { name: 'Task 7', date: '2024-09-01', time: '10:00', status: 'Pending' },
+    { name: 'Task 8', date: '2024-09-02', time: '11:00', status: 'Completed' },
+    { name: 'Task 9', date: '2024-09-03', time: '12:00', status: 'Pending' },
+    { name: 'Task 10', date: '2024-09-01', time: '10:00', status: 'Pending' },
+    { name: 'Task 11', date: '2024-09-02', time: '11:00', status: 'Completed' },
+    { name: 'Task 12', date: '2024-09-03', time: '12:00', status: 'Pending' },
   ];
   filteredEntries = [...this.entries]; // Copy of entries to filter
   currentPage = 1;
   itemsPerPage = 10;
   totalPages = 0;
 
-  // Search input fields
+  // Search input 
   searchName = '';
   searchDate = '';
   searchStatus = '';
@@ -78,4 +77,17 @@ export class EntryListComponent implements OnInit {
       this.updatePaginatedEntries();
     }
   }
+  confirmDelete(entry: { name: string; date: string; time: string; status: string; }, index: number) {
+    const confirmation = window.confirm(`Are you sure you want to delete the entry "${entry.name}"?`);
+    if (confirmation) {
+      this.deleteEntry(index);
+    }
+  }
+  
+  deleteEntry(index: number) {
+    const actualIndex = (this.currentPage - 1) * this.itemsPerPage + index; // Calculate the actual index in entries array
+    this.entries.splice(actualIndex, 1); // Remove entry from the original array
+    this.filterEntries(); // Re-filter and update the paginated entries
+  }
+  
 }

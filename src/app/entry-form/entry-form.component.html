@@ -1,3 +1,5 @@
+<div class="container">
+  
 <form (ngSubmit)="onSubmit()" #entryForm="ngForm">
 
   <div>
@@ -39,6 +41,7 @@
   </div>
 
 
+
   <div>
     <label for="status">Status:</label>
     <textarea id="status" name="status" [(ngModel)]="entry.status" (ngModelChange)="saveFormData()" required></textarea>
@@ -47,3 +50,5 @@
 
   <button type="submit" [disabled]="!entryForm.form.valid">Submit</button>
 </form>
+
+</div>

@@ -1,29 +1,56 @@
-.navbar {
-    background-color: #f8f9fa;
-    padding: 10px 20px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-    margin: 0;
-    padding: 0;
-    margin-left: 43%;
-  }
-  
-  .nav-links li {
-    display: inline;
-  }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: #0c72df;
-    /* font-weight: bold; */
-  }
-  
-  .nav-links a:hover {
-    text-decoration: underline;
-  }
-  
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 98%;
+  margin-top: 5px;
+  margin-left: 5px;
+  width: 220px;
+  background-color: #333;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 20px;
+}
+
+.sidebar .app-title {
+  color: #fff;
+  font-size: 18px;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-links li {
+  margin-bottom: 20px;
+}
+
+.nav-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  display: block;
+}
+
+.nav-links li a:hover {
+  background-color: #4CAF50;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #45a049;
+}

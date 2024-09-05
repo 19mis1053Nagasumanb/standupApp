@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class EntryFormComponent implements OnInit {
   entry = {
     date: '',
-    hours: 0,     
+    hours: 0,
     minutes: 0,   
     name: '',
     status: ''
@@ -56,7 +56,6 @@ export class EntryFormComponent implements OnInit {
   onSubmit() {
     console.log('Form submitted', this.entry);
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('entryForm'); // Clear data after submission
     }
   }
 
